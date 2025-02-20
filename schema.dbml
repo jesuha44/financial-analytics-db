@@ -1,0 +1,36 @@
+Table users {
+  id INT [primary key]
+  name VARCHAR(255)
+  email VARCHAR(255) [unique]
+  created_at TIMESTAMP
+}
+
+Table transactions {
+  id INT [primary key]
+  user_id INT [ref: > users.id]
+  amount DECIMAL(10,2)
+  transaction_type ENUM('income', 'expense')
+  category VARCHAR(255)
+  date TIMESTAMP
+}
+
+Table accounts {
+  id INT [primary key]
+  user_id INT [ref: > users.id]
+  account_type ENUM('savings', 'checking', 'investment', 'credit')
+  balance DECIMAL(10,2)
+  created_at TIMESTAMP
+}
+
+Table follows {
+  following_user_id INT [ref: > users.id]
+  followed_user_id INT [ref: > users.id]
+  created_at TIMESTAMP
+}
+
+Table posts {
+  id INT [primary key]
+  user_id INT [ref: > users.id]
+  content TEXT
+  created_at TIMESTAMP
+}
